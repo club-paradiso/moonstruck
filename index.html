@@ -1,93 +1,14 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StudyFlow — 2026 Edition</title>
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
-  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-
-  <link href="https://fonts.googleapis.com/css2?family=Jua&family=DM+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-<div id="progress"></div>
-
-<header class="site-header">
-  <div class="header-inner">
-    <div class="header-kicker">ADHD 학습 지원 시스템</div>
-    <h1>StudyFlow 2026</h1>
-  </div>
-  <div class="header-controls">
-    <button class="btn-outline active" id="threadBtn" onclick="switchMode('thread')">🐦 타래 모드</button>
-    <button class="btn-outline" id="magBtn" onclick="switchMode('magazine')">📖 매거진 모드</button>
-    <button class="btn-outline" onclick="toggleSettings()">⚙️ 설정</button>
-  </div>
-</header>
-
-<div class="settings-panel" id="settingsPanel">
-  <div class="sp-field">
-    <label>OpenAI API Key</label>
-    <input type="password" id="apiKey" placeholder="sk-..." />
-  </div>
-  <div class="sp-field">
-    <label>모델 선택</label>
-    <select id="modelSel">
-      <option value="gpt-4o-mini">GPT-4o mini (가성비)</option>
-      <option value="gpt-4o">GPT-4o (고품질)</option>
-    </select>
-  </div>
-  <button class="btn-save" onclick="saveSettings()">저장하기</button>
-</div>
-
-<div class="page-wrap">
-  
-  <aside class="in-panel">
-    <div class="in-header">
-      <div class="in-title">데이터 파싱 및 청킹</div>
-      <div class="in-desc">자료를 업로드하면 브라우저 내에서 텍스트를 자동 분할합니다.</div>
-    </div>
-    <div class="in-body">
-      <div class="file-drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
-        <div class="file-drop-text">📁 PDF 또는 이미지 첨부</div>
-        <div class="parse-spinner" id="parseStatus"></div>
-      </div>
-      <input type="file" id="fileInput" accept="application/pdf, image/png, image/jpeg" onchange="handleFileSelect(event)">
-      
-      <div id="chunkList" class="chunk-container">
-        <div style="text-align:center; padding: 20px; color:var(--ink-3); font-size:13px;">문서가 분할되어 이곳에 표시됩니다.</div>
-      </div>
-      <textarea id="rawTextStore" style="display:none;"></textarea>
-    </div>
-    <div class="in-footer">
-      <div class="stat-row">
-        <span>선택된 블록: <strong id="chunkCount" style="color:var(--burgundy)">0</strong></span>
-        <span id="charCount">0 bytes</span>
-      </div>
-      <button class="gen-btn" id="genBtn" onclick="generate()">✦ 변환 실행</button>
-    </div>
-  </aside>
-
-  <main class="out-panel">
-    <div class="summary-block">
-      <h2>출력 결과</h2>
-      <div id="outputContainer">
-        <div class="empty-state">
-          <h3>Ready to Study</h3>
-          <p>좌측에서 문서를 파싱하고 변환을 실행하세요.</p>
-        </div>
-      </div>
-    </div>
-  </main>
-
-</div>
-
-<div class="toast" id="toast"></div>
-
-<script src="js/app.js"></script>
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#7761bb" />
+    <title>moonstruck · A little clarity for every paper</title>
+    <link rel="icon" type="image/svg+xml" href="/moon.svg" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
