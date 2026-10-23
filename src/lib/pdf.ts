@@ -13,7 +13,8 @@ export async function readPdf(
   if (file.size > 40 * 1024 * 1024)
     throw new Error("This local reader supports PDFs up to 40 MB.");
   const bytes = new Uint8Array(await file.arrayBuffer());
-  const document = await getDocument({ data: bytes.slice() }).promise;
+  const loadingTask = getDocument({ data: bytes.slice() });
+  const document = await loadingTask.promise;
   try {
     if (document.numPages > 150)
       throw new Error("Please choose a PDF with 150 pages or fewer.");
@@ -67,6 +68,6 @@ export async function readPdf(
       bytes,
     };
   } finally {
-    await document.destroy();
+    await loadingTask.destroy();
   }
 }

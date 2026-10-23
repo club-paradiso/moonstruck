@@ -23,12 +23,14 @@ export function PdfCanvas({
   }, [initialPage]);
   useEffect(() => {
     let canceled = false;
-    let document: PDFDocumentProxy | undefined;
+    let loadingTask: ReturnType<typeof import("../lib/pdf").getDocument> | undefined;
     import("../lib/pdf")
-      .then(({ getDocument }) => getDocument({ data: bytes.slice() }).promise)
+      .then(({ getDocument }) => {
+        loadingTask = getDocument({ data: bytes.slice() });
+        return loadingTask.promise;
+      })
       .then((result) => {
-        document = result;
-        if (canceled) void result.destroy();
+        if (canceled) void loadingTask?.destroy();
         else setPdf(result);
       })
       .catch((e) => {
@@ -36,7 +38,7 @@ export function PdfCanvas({
       });
     return () => {
       canceled = true;
-      void document?.destroy();
+      void loadingTask?.destroy();
     };
   }, [bytes]);
   useEffect(() => {
